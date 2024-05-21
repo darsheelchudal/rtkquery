@@ -6,12 +6,29 @@ export const postApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com",
   }),
   endpoints: (builder) => ({
-    getAllPost: builder.query({
+    getAllPosts: builder.query({
       query: () => ({
         url: "/posts",
       }),
     }),
+    getPostById: builder.query({
+      query: (id) => ({
+        url: `/posts/${id}`,
+      }),
+    }),
+    getPostByLimit: builder.query({
+      query: (num) => {
+        console.log("Limit Number:", num);
+        return {
+          url: `/posts?_limit=${num}`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllPostQuery } = postApi;
+export const {
+  useGetAllPostsQuery,
+  useGetPostByIdQuery,
+  useGetPostByLimitQuery,
+} = postApi;
